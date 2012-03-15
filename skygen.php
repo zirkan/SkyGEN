@@ -6,22 +6,21 @@
 	@return string - Hash
 */
 function skygen($string,$options=array(
-	5/*size of chunk of md5 hash*/ => 8 /*position this chunk in sha1 hash*/,
-	6 => 12,
-	3 => 0,
-	10 => 30,
-	-1 => 20,
+	array('size' => 5, 'position' => 8 ),
+	array('size' => 6, 'position' => 0 ),
+	array('size' => 5, 'position' => 30 ),
+	array('size' => -1, 'position' => 20 ),
 )){
 	$sha1=sha1($string);
 	$md5=md5($string);
 	$chunks=array();
-	foreach($options as $chunkSize=>$pos){
-		if($chunkSize==-1) $chunk=$md5;
+	foreach($options as $item){
+		if($item['size']==-1) $chunk=$md5;
 		else {
-			$chunk=substr($md5,0,$chunkSize);
-			$md5=substr_replace($md5,'',0,$chunkSize);
+			$chunk=substr($md5,0,$item['size']);
+			$md5=substr_replace($md5,'',0,$item['size']);
 		}
-		$chunks[$pos]=$chunk;
+		$chunks[$item['position']]=$chunk;
 	}
 	$keys=array_keys($chunks);
 	sort($keys);
