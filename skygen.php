@@ -27,8 +27,8 @@ function skygen($string,$options=array(
 	sort($keys);
 	$delta=0;
 	foreach($keys as $key){
-		$delta+=$key;
-		$sha1=substr($sha1,0,$delta).$chunks[$key].substr($sha1,$delta+1);
+		$sha1=substr($sha1,0,$key+$delta).$chunks[$key].substr($sha1,$key+$delta);
+		$delta+=strlen($chunks[$key]);
 	}
 	return sha1($sha1);
 }
