@@ -11,7 +11,7 @@ function skygen($string,$options=array(
 	array('size' => 5, 'position' => 30 ),
 	array('size' => -1, 'position' => 20 ),
 )){
-	$sha1=sha1($string);
+	$sha512=hash('sha512', $string);
 	$md5=md5($string);
 	$chunks=array();
 	foreach($options as $item){
@@ -26,8 +26,8 @@ function skygen($string,$options=array(
 	sort($keys);
 	$delta=0;
 	foreach($keys as $key){
-		$sha1=substr($sha1,0,$key+$delta).$chunks[$key].substr($sha1,$key+$delta);
+		$sha512=substr($sha512,0,$key+$delta).$chunks[$key].substr($sha512,$key+$delta);
 		$delta+=strlen($chunks[$key]);
 	}
-	return sha1($sha1);
+	return hash('sha512', $sha512);
 }

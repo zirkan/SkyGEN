@@ -6,7 +6,7 @@ def skygen(string, options=[\
 	{'size':5, 'position':30},\
 	{'size':-1, 'position':20}]):
 	# Return hash of string
-	sha1=hashlib.sha1(string).hexdigest()
+	sha512=hashlib.sha512(string).hexdigest()
 	md5=hashlib.md5(string).hexdigest()
 	chunks={}
 	for item in options:
@@ -19,6 +19,6 @@ def skygen(string, options=[\
 	keys.sort()
 	delta=0
 	for key in keys:
-		sha1=sha1[:key+delta]+chunks[key]+sha1[key+delta:]
+		sha512=sha512[:key+delta]+chunks[key]+sha512[key+delta:]
 		delta+=len(chunks[key])
-	return hashlib.sha1(sha1).hexdigest()
+	return hashlib.sha512(sha512).hexdigest()
