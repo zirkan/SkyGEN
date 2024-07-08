@@ -2,6 +2,7 @@ import os
 import hashlib
 import logging
 import secrets
+from typing import Tuple
 from argon2 import PasswordHasher, exceptions
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.kdf.argon2 import Argon2
@@ -24,14 +25,25 @@ AES_IV_SIZE = 12  # 96-bit IV for GCM mode
 # Initialize Argon2 hasher
 ph = PasswordHasher(time_cost=TIME_COST, memory_cost=MEMORY_COST, parallelism=PARALLELISM, hash_len=HASH_LENGTH)
 
-
 def generate_shannon_salt() -> bytes:
-    """Generate a cryptographically secure random salt."""
+    """
+    Generate a cryptographically secure random salt.
+
+    Returns:
+        bytes: A random salt.
+    """
     return secrets.token_bytes(SALT_SIZE)
 
-
 def enforce_turing_password_policy(password: str) -> bool:
-    """Enforce strong password policy."""
+    """
+    Enforce strong password policy.
+
+    Args:
+        password (str): The password to check.
+
+    Returns:
+        bool: True if the password meets the policy, False otherwise.
+    """
     if len(password) < 8:
         return False
     if not any(char.isdigit() for char in password):
@@ -44,8 +56,7 @@ def enforce_turing_password_policy(password: str) -> bool:
         return False
     return True
 
-
-def hash_turing_password(password: str, salt: bytes) -> tuple[str, str]:
+def hash_turing_password(password: str, salt: bytes) -> Tuple[str, str]:
     """
     Hash a password with Argon2 and SHA-3.
 
@@ -72,7 +83,6 @@ def hash_turing_password(password: str, salt: bytes) -> tuple[str, str]:
         logger.error("Error hashing password: %s", e)
         raise
 
-
 def verify_diffie_password(stored_hash: str, stored_salt: str, password: str) -> bool:
     """
     Verify a password against the stored hash and salt.
@@ -86,12 +96,13 @@ def verify_diffie_password(stored_hash: str, stored_salt: str, password: str) ->
         bool: True if the password is valid, False otherwise.
     """
     try:
+        # Verify the password with Argon2
+        ph.verify(stored_hash, password + stored_salt)
+        
         # Recreate the combined hash
         combined = stored_hash.encode() + bytes.fromhex(stored_salt)
         sha3_hash = hashlib.sha3_256(combined).hexdigest()
 
-        # Verify the password with Argon2
-        ph.verify(stored_hash, password + stored_salt)
         return compare_digest(sha3_hash, stored_hash)
     except exceptions.VerifyMismatchError:
         logger.warning("Password verification failed: mismatch")
@@ -99,7 +110,6 @@ def verify_diffie_password(stored_hash: str, stored_salt: str, password: str) ->
     except Exception as e:
         logger.error("Error verifying password: %s", e)
         raise
-
 
 def derive_rivest_key(password: str, salt: bytes) -> bytes:
     """
@@ -121,8 +131,7 @@ def derive_rivest_key(password: str, salt: bytes) -> bytes:
     )
     return kdf.derive(password.encode())
 
-
-def encrypt_shamir_message(message: str, key: bytes) -> tuple[str, str, str]:
+def encrypt_shamir_message(message: str, key: bytes) -> Tuple[str, str, str]:
     """
     Encrypt a message using AES-GCM.
 
@@ -138,7 +147,6 @@ def encrypt_shamir_message(message: str, key: bytes) -> tuple[str, str, str]:
     encryptor = cipher.encryptor()
     encrypted_message = encryptor.update(message.encode()) + encryptor.finalize()
     return encrypted_message.hex(), iv.hex(), encryptor.tag.hex()
-
 
 def decrypt_shamir_message(encrypted_message: str, key: bytes, iv: str, tag: str) -> str:
     """
@@ -158,8 +166,6 @@ def decrypt_shamir_message(encrypted_message: str, key: bytes, iv: str, tag: str
     decrypted_message = decryptor.update(bytes.fromhex(encrypted_message)) + decryptor.finalize()
     return decrypted_message.decode()
 
-
-# Example usage
 if __name__ == "__main__":
     password = "Secure_Password123!"
     salt = generate_shannon_salt()
