@@ -11,13 +11,41 @@ Welcome to **SkyGen Enigma**, your go-to toolkit for state-of-the-art password h
 - **Comprehensive Logging**: Keep track of all operations with detailed logging.
 - **Environment Configurable**: Easily tweak settings with environment variables.
 
+## ⚖️ Why SkyGen Enigma?
+
+### Superior Security Methods
+
+1. **Argon2 Password Hashing**:
+   - **Memory-Hard Function**: Argon2 is designed to resist brute-force attacks by requiring significant memory to compute, making it costly for attackers.
+   - **Winner of the Password Hashing Competition**: This endorsement ensures that Argon2 has been rigorously tested and vetted by cryptography experts.
+
+2. **SHA-3 Hashing**:
+   - **NIST Standard**: SHA-3 is the latest member of the Secure Hash Algorithm family and provides a robust hashing mechanism that is resistant to all known attacks.
+   - **Future-Proof**: With its strong security guarantees, SHA-3 is designed to be secure for the foreseeable future.
+
+3. **AES-GCM Encryption**:
+   - **Authenticated Encryption**: AES-GCM not only encrypts your data but also ensures its integrity and authenticity, protecting against tampering.
+   - **Widely Adopted**: AES-GCM is used in many modern security protocols, including TLS and IPsec, due to its efficiency and security.
+
+### Strong Password Policy
+
+- **Enforcement of Best Practices**: By requiring passwords to have a mix of characters and a minimum length, SkyGen Enigma ensures that users create strong passwords that are harder to crack.
+
+### Comprehensive Logging
+
+- **Detailed Logs**: Keep track of all operations, making it easier to debug issues and monitor the security of your application.
+
+### Environment Configurable
+
+- **Flexible Configuration**: Easily adjust the security parameters to suit your specific needs and environment.
+
 ## 📦 Installation
 
 Clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/zirkan/SkyGen.git
-cd SkyGen
+git clone git@github.com:zirkan/SkyGEN.git
+cd SkyGEN
 ```
 
 Install the required dependencies:
