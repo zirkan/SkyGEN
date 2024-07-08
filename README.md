@@ -1,252 +1,120 @@
-# SkyGEN Enigma
 
-## Overview
+# SkyGEN: Advanced Cryptographic Toolkit
 
-SkyGEN Enigma is an advanced security toolkit designed to provide robust and cutting-edge security features. This toolkit integrates post-quantum cryptography, zero-knowledge proofs, homomorphic encryption, AI-powered anomaly detection, and blockchain technology to ensure unparalleled security and adaptability to future threats.
+SkyGEN is a comprehensive cryptographic toolkit that combines blockchain technology, post-quantum cryptography, zero-knowledge proofs, and AI-powered anomaly detection. This project aims to provide a robust and flexible platform for various cryptographic operations and blockchain management.
+
+## Repository
+
+https://github.com/zirkan/SkyGEN
 
 ## Features
 
-1. **Post-Quantum Cryptography**
-   - Resistant to quantum computing attacks.
-   - Supports lattice-based cryptography (Kyber).
+- Asynchronous blockchain implementation with proof-of-work
+- Post-quantum cryptography for enhanced security
+- Zero-knowledge proofs and homomorphic encryption
+- AI-powered anomaly detection
+- Secure password hashing using Argon2
+- Modular plugin system for cryptographic operations
+- Configuration management using YAML files
+- SQLite database integration for transaction storage
+- Comprehensive CLI interface
 
-2. **Zero-Knowledge Proofs**
-   - Allows proving identity without revealing sensitive information.
-   - Secure data sharing through zero-knowledge proofs.
+## Requirements
 
-3. **Homomorphic Encryption**
-   - Enables computations on encrypted data without decryption.
-   - Useful for secure cloud computing and data privacy.
-
-4. **AI-Powered Anomaly Detection**
-   - Machine learning algorithms to detect unusual patterns and potential security breaches in real-time.
-   - Automated incident response based on AI analysis.
-
-5. **Blockchain Integration**
-   - Decentralized, tamper-proof record of security events and configurations.
-   - Distributed key management to reduce the risk of key compromise.
+- Python 3.7+
+- asyncio
+- click
+- numpy
+- cryptography
+- phe (Python Homomorphic Encryption library)
+- scikit-learn
+- python-dotenv
+- pyyaml
+- argon2-cffi
+- aiofiles
+- aiosqlite
 
 ## Installation
 
-### Prerequisites
-
-- Python 3.6+
-- Required packages (install via pip):
-  ```bash
-  pip install click numpy pqcrypto phe scikit-learn
-  ```
-
-### Setup
-
 1. Clone the repository:
-   ```bash
+   ```
    git clone https://github.com/zirkan/SkyGEN.git
    cd SkyGEN
    ```
 
-2. Install dependencies:
-   ```bash
+2. Create a virtual environment (optional but recommended):
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```
+
+3. Install the required dependencies:
+   ```
    pip install -r requirements.txt
    ```
 
+## Configuration
+
+Create a `config.yaml` file in the project root with the following structure:
+
+```yaml
+database_path: "path/to/your/database.sqlite"
+# Add other configuration options as needed
+```
+
 ## Usage
 
-### CLI Commands
+The program provides a CLI interface for various operations. Here are some example commands:
 
-SkyGEN Enigma provides a command-line interface (CLI) for ease of use. Below are the available commands:
-
-#### Post-Quantum Cryptography
-
-- **Encrypt Data:**
-  ```bash
-  python skygen_enigma.py pq_encrypt "data" "public_key"
-  ```
-
-- **Decrypt Data:**
-  ```bash
-  python skygen_enigma.py pq_decrypt "ciphertext" "private_key"
-  ```
-
-#### Zero-Knowledge Proofs
-
-- **Generate Proof:**
-  ```bash
-  python skygen_enigma.py zk_prove "secret"
-  ```
-
-- **Verify Proof:**
-  ```bash
-  python skygen_enigma.py zk_verify "proof"
-  ```
-
-#### Homomorphic Encryption
-
-- **Encrypt Data:**
-  ```bash
-  python skygen_enigma.py he_encrypt "data" "public_key"
-  ```
-
-- **Decrypt Data:**
-  ```bash
-  python skygen_enigma.py he_decrypt "encrypted_data" "private_key"
-  ```
-
-#### AI-Powered Anomaly Detection
-
-- **Train Model:**
-  ```bash
-  python skygen_enigma.py train_anomaly "data"
-  ```
-
-- **Detect Anomalies:**
-  ```bash
-  python skygen_enigma.py detect_anomalies "new_data"
-  ```
-
-#### Blockchain Integration
-
-- **New Transaction:**
-  ```bash
-  python skygen_enigma.py new_transaction "sender" "recipient" "amount"
-  ```
-
-## External Files
-
-SkyGEN Enigma uses several external files for modularity and clarity. Below are the files and their purposes:
-
-1. **post_quantum.py**
-   - Handles post-quantum cryptographic operations.
-   ```python
-   from pqcrypto.kem import kyber
-
-   class PostQuantumCryptography:
-       @staticmethod
-       def pq_encrypt(data, public_key):
-           ciphertext, shared_secret = kyber.encrypt(public_key, data)
-           return ciphertext, shared_secret
-
-       @staticmethod
-       def pq_decrypt(ciphertext, private_key):
-           data = kyber.decrypt(private_key, ciphertext)
-           return data
+1. Encrypt a password:
+   ```
+   python skygen.py encrypt-password
    ```
 
-2. **zero_knowledge.py**
-   - Manages zero-knowledge proof operations.
-   ```python
-   from zksnark import Prover, Verifier
-
-   class ZeroKnowledgeProofs:
-       @staticmethod
-       def zk_prove(secret):
-           prover = Prover(secret)
-           proof = prover.generate_proof()
-           return proof
-
-       @staticmethod
-       def zk_verify(proof):
-           verifier = Verifier()
-           return verifier.verify_proof(proof)
+2. Encrypt a message using post-quantum cryptography:
+   ```
+   python skygen.py encrypt-message
    ```
 
-3. **homomorphic.py**
-   - Conducts homomorphic encryption operations.
-   ```python
-   from phe import paillier
-
-   class HomomorphicEncryption:
-       @staticmethod
-       def he_encrypt(data, public_key):
-           encrypted_data = public_key.encrypt(data)
-           return encrypted_data
-
-       @staticmethod
-       def he_decrypt(encrypted_data, private_key):
-           decrypted_data = private_key.decrypt(encrypted_data)
-           return decrypted_data
+3. Decrypt a message:
+   ```
+   python skygen.py decrypt-message
    ```
 
-4. **ai_anomaly.py**
-   - Implements AI-powered anomaly detection.
-   ```python
-   from sklearn.ensemble import IsolationForest
-   import numpy as np
-
-   class AIPoweredAnomalyDetection:
-       def __init__(self):
-           self.model = IsolationForest()
-
-       def train(self, data):
-           self.model.fit(data)
-
-       def detect_anomalies(self, new_data):
-           return self.model.predict(new_data)
+4. Train the anomaly detection model:
+   ```
+   python skygen.py train-anomaly --data 1.0 2.0 3.0 4.0 5.0
    ```
 
-5. **blockchain.py**
-   - Integrates blockchain technology for security logging.
-   ```python
-   import hashlib
-   import json
-   from time import time
-
-   class Blockchain:
-       def __init__(self):
-           self.chain = []
-           self.current_transactions = []
-           self.new_block(previous_hash='1', proof=100)
-
-       def new_block(self, proof, previous_hash=None):
-           block = {
-               'index': len(self.chain) + 1,
-               'timestamp': time(),
-               'transactions': self.current_transactions,
-               'proof': proof,
-               'previous_hash': previous_hash or self.hash(self.chain[-1]),
-           }
-           self.current_transactions = []
-           self.chain.append(block)
-           return block
-
-       def new_transaction(self, sender, recipient, amount):
-           self.current_transactions.append({
-               'sender': sender,
-               'recipient': recipient,
-               'amount': amount,
-           })
-           return self.last_block['index'] + 1
-
-       @staticmethod
-       def hash(block):
-           block_string = json.dumps(block, sort_keys=True).encode()
-           return hashlib.sha256(block_string).hexdigest()
-
-       @property
-       def last_block(self):
-           return self.chain[-1]
-
-       def proof_of_work(self, last_proof):
-           proof = 0
-           while self.valid_proof(last_proof, proof) is False:
-               proof += 1
-           return proof
-
-       @staticmethod
-       def valid_proof(last_proof, proof):
-           guess = f'{last_proof}{proof}'.encode()
-           guess_hash = hashlib.sha256(guess).hexdigest()
-           return guess_hash[:4] == "0000"
+5. Detect anomalies:
    ```
+   python skygen.py detect-anomalies --data 1.0 2.0 10.0 4.0 5.0
+   ```
+
+6. Create a new transaction:
+   ```
+   python skygen.py new-transaction --sender Alice --recipient Bob --amount 10.5
+   ```
+
+7. Mine a new block:
+   ```
+   python skygen.py mine
+   ```
+
+For more information on available commands, use:
+```
+python skygen.py --help
+```
 
 ## Contributing
 
-Contributions are welcome! Please submit a pull request or open an issue to discuss your ideas for improvements or new features.
+Contributions to SkyGEN are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## Disclaimer
 
-- Inspired by the latest advancements in cryptography and security.
-- Thanks to the open-source community for providing the tools and libraries used in this project.
+This software is provided for educational and research purposes only. No warranty is provided, and the authors are not responsible for any misuse or damage caused by this software.
+```
