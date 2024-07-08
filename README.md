@@ -8,14 +8,6 @@ Welcome to **Skygen Enigma**! This project is your ultimate cryptographic toolki
 - **Secure Encryption**: Encrypt and decrypt messages using AES-GCM.
 - **Cool Function Names**: Functions named after famous cryptographers to make your coding experience more fun!
 
-## 📜 Table of Contents
-
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [Examples](#examples)
-4. [Contributing](#contributing)
-5. [License](#license)
-
 ## 🛠️ Installation
 
 Clone the repository and install the required packages:
