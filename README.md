@@ -1,139 +1,252 @@
-# 🔐 SkyGen Enigma: Ultimate Password Hashing & Encryption Toolkit
+# SkyGEN Enigma
 
-Welcome to **SkyGen Enigma**, your go-to toolkit for state-of-the-art password hashing and encryption! Whether you're a developer looking to secure user passwords or just someone who loves cryptography, SkyGen Enigma has got you covered.
+## Overview
 
-## 🚀 Features
+SkyGEN Enigma is an advanced security toolkit designed to provide robust and cutting-edge security features. This toolkit integrates post-quantum cryptography, zero-knowledge proofs, homomorphic encryption, AI-powered anomaly detection, and blockchain technology to ensure unparalleled security and adaptability to future threats.
 
-- **Argon2 Password Hashing**: Leverage the power of Argon2, the winner of the Password Hashing Competition, for robust password security.
-- **SHA-3 Hashing**: Add an extra layer of security with SHA-3 hashing.
-- **AES-GCM Encryption**: Secure your data with AES-GCM, ensuring both confidentiality and integrity.
-- **Strong Password Policy Enforcement**: Enforce strong passwords with checks for length, digits, upper and lower case letters, and special characters.
-- **Comprehensive Logging**: Keep track of all operations with detailed logging.
-- **Environment Configurable**: Easily tweak settings with environment variables.
+## Features
 
-## ⚖️ Why SkyGen Enigma?
+1. **Post-Quantum Cryptography**
+   - Resistant to quantum computing attacks.
+   - Supports lattice-based cryptography (Kyber).
 
-### Superior Security Methods
+2. **Zero-Knowledge Proofs**
+   - Allows proving identity without revealing sensitive information.
+   - Secure data sharing through zero-knowledge proofs.
 
-1. **Argon2 Password Hashing**:
-   - **Memory-Hard Function**: Argon2 is designed to resist brute-force attacks by requiring significant memory to compute, making it costly for attackers.
-   - **Winner of the Password Hashing Competition**: This endorsement ensures that Argon2 has been rigorously tested and vetted by cryptography experts.
+3. **Homomorphic Encryption**
+   - Enables computations on encrypted data without decryption.
+   - Useful for secure cloud computing and data privacy.
 
-2. **SHA-3 Hashing**:
-   - **NIST Standard**: SHA-3 is the latest member of the Secure Hash Algorithm family and provides a robust hashing mechanism that is resistant to all known attacks.
-   - **Future-Proof**: With its strong security guarantees, SHA-3 is designed to be secure for the foreseeable future.
+4. **AI-Powered Anomaly Detection**
+   - Machine learning algorithms to detect unusual patterns and potential security breaches in real-time.
+   - Automated incident response based on AI analysis.
 
-3. **AES-GCM Encryption**:
-   - **Authenticated Encryption**: AES-GCM not only encrypts your data but also ensures its integrity and authenticity, protecting against tampering.
-   - **Widely Adopted**: AES-GCM is used in many modern security protocols, including TLS and IPsec, due to its efficiency and security.
+5. **Blockchain Integration**
+   - Decentralized, tamper-proof record of security events and configurations.
+   - Distributed key management to reduce the risk of key compromise.
 
-### Strong Password Policy
+## Installation
 
-- **Enforcement of Best Practices**: By requiring passwords to have a mix of characters and a minimum length, SkyGen Enigma ensures that users create strong passwords that are harder to crack.
+### Prerequisites
 
-### Comprehensive Logging
+- Python 3.6+
+- Required packages (install via pip):
+  ```bash
+  pip install click numpy pqcrypto phe scikit-learn
+  ```
 
-- **Detailed Logs**: Keep track of all operations, making it easier to debug issues and monitor the security of your application.
+### Setup
 
-### Environment Configurable
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zirkan/SkyGEN.git
+   cd SkyGEN
+   ```
 
-- **Flexible Configuration**: Easily adjust the security parameters to suit your specific needs and environment.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## 📦 Installation
+## Usage
 
-Clone the repository and navigate to the project directory:
+### CLI Commands
 
-```bash
-git clone git@github.com:zirkan/SkyGEN.git
-cd SkyGEN
-```
+SkyGEN Enigma provides a command-line interface (CLI) for ease of use. Below are the available commands:
 
-Install the required dependencies:
+#### Post-Quantum Cryptography
 
-```bash
-pip install -r requirements.txt
-```
+- **Encrypt Data:**
+  ```bash
+  python skygen_enigma.py pq_encrypt "data" "public_key"
+  ```
 
-## 🛠️ Usage
+- **Decrypt Data:**
+  ```bash
+  python skygen_enigma.py pq_decrypt "ciphertext" "private_key"
+  ```
 
-Here's a quick guide to get you started with SkyGen Enigma:
+#### Zero-Knowledge Proofs
 
-### 1. Hash a Password
+- **Generate Proof:**
+  ```bash
+  python skygen_enigma.py zk_prove "secret"
+  ```
 
-```python
-from skygen_enigma import generate_shannon_salt, hash_turing_password
+- **Verify Proof:**
+  ```bash
+  python skygen_enigma.py zk_verify "proof"
+  ```
 
-password = "SuperSecurePassword123!"
-salt = generate_shannon_salt()
-hashed_password, salt_hex = hash_turing_password(password, salt)
+#### Homomorphic Encryption
 
-print(f"Hashed Password: {hashed_password}")
-print(f"Salt: {salt_hex}")
-```
+- **Encrypt Data:**
+  ```bash
+  python skygen_enigma.py he_encrypt "data" "public_key"
+  ```
 
-### 2. Verify a Password
+- **Decrypt Data:**
+  ```bash
+  python skygen_enigma.py he_decrypt "encrypted_data" "private_key"
+  ```
 
-```python
-from skygen_enigma import verify_diffie_password
+#### AI-Powered Anomaly Detection
 
-is_valid = verify_diffie_password(password, hashed_password, bytes.fromhex(salt_hex))
+- **Train Model:**
+  ```bash
+  python skygen_enigma.py train_anomaly "data"
+  ```
 
-if is_valid:
-    print("Password is valid!")
-else:
-    print("Invalid password.")
-```
+- **Detect Anomalies:**
+  ```bash
+  python skygen_enigma.py detect_anomalies "new_data"
+  ```
 
-### 3. Encrypt Data
+#### Blockchain Integration
 
-```python
-from skygen_enigma import encrypt_data, decrypt_data
+- **New Transaction:**
+  ```bash
+  python skygen_enigma.py new_transaction "sender" "recipient" "amount"
+  ```
 
-data = b"Sensitive data that needs encryption"
-key = b"32_byte_key_for_aes_gcm_"  # Ensure your key is 32 bytes
-iv, ciphertext, tag = encrypt_data(data, key)
+## External Files
 
-print(f"IV: {iv}")
-print(f"Ciphertext: {ciphertext}")
-print(f"Tag: {tag}")
+SkyGEN Enigma uses several external files for modularity and clarity. Below are the files and their purposes:
 
-# Decrypt the data
-decrypted_data = decrypt_data(iv, ciphertext, tag, key)
-print(f"Decrypted Data: {decrypted_data}")
-```
+1. **post_quantum.py**
+   - Handles post-quantum cryptographic operations.
+   ```python
+   from pqcrypto.kem import kyber
 
-## ⚙️ Configuration
+   class PostQuantumCryptography:
+       @staticmethod
+       def pq_encrypt(data, public_key):
+           ciphertext, shared_secret = kyber.encrypt(public_key, data)
+           return ciphertext, shared_secret
 
-You can configure the Argon2 parameters using environment variables:
+       @staticmethod
+       def pq_decrypt(ciphertext, private_key):
+           data = kyber.decrypt(private_key, ciphertext)
+           return data
+   ```
 
-```bash
-export ARGON2_TIME_COST=3
-export ARGON2_MEMORY_COST=65536
-export ARGON2_PARALLELISM=4
-```
+2. **zero_knowledge.py**
+   - Manages zero-knowledge proof operations.
+   ```python
+   from zksnark import Prover, Verifier
 
-## 🧪 Testing
+   class ZeroKnowledgeProofs:
+       @staticmethod
+       def zk_prove(secret):
+           prover = Prover(secret)
+           proof = prover.generate_proof()
+           return proof
 
-Run the tests to ensure everything is working correctly:
+       @staticmethod
+       def zk_verify(proof):
+           verifier = Verifier()
+           return verifier.verify_proof(proof)
+   ```
 
-```bash
-pytest
-```
+3. **homomorphic.py**
+   - Conducts homomorphic encryption operations.
+   ```python
+   from phe import paillier
 
-## 🤝 Contributing
+   class HomomorphicEncryption:
+       @staticmethod
+       def he_encrypt(data, public_key):
+           encrypted_data = public_key.encrypt(data)
+           return encrypted_data
 
-We welcome contributions! Feel free to fork the repository, make your changes, and submit a pull request.
+       @staticmethod
+       def he_decrypt(encrypted_data, private_key):
+           decrypted_data = private_key.decrypt(encrypted_data)
+           return decrypted_data
+   ```
 
-## 📄 License
+4. **ai_anomaly.py**
+   - Implements AI-powered anomaly detection.
+   ```python
+   from sklearn.ensemble import IsolationForest
+   import numpy as np
+
+   class AIPoweredAnomalyDetection:
+       def __init__(self):
+           self.model = IsolationForest()
+
+       def train(self, data):
+           self.model.fit(data)
+
+       def detect_anomalies(self, new_data):
+           return self.model.predict(new_data)
+   ```
+
+5. **blockchain.py**
+   - Integrates blockchain technology for security logging.
+   ```python
+   import hashlib
+   import json
+   from time import time
+
+   class Blockchain:
+       def __init__(self):
+           self.chain = []
+           self.current_transactions = []
+           self.new_block(previous_hash='1', proof=100)
+
+       def new_block(self, proof, previous_hash=None):
+           block = {
+               'index': len(self.chain) + 1,
+               'timestamp': time(),
+               'transactions': self.current_transactions,
+               'proof': proof,
+               'previous_hash': previous_hash or self.hash(self.chain[-1]),
+           }
+           self.current_transactions = []
+           self.chain.append(block)
+           return block
+
+       def new_transaction(self, sender, recipient, amount):
+           self.current_transactions.append({
+               'sender': sender,
+               'recipient': recipient,
+               'amount': amount,
+           })
+           return self.last_block['index'] + 1
+
+       @staticmethod
+       def hash(block):
+           block_string = json.dumps(block, sort_keys=True).encode()
+           return hashlib.sha256(block_string).hexdigest()
+
+       @property
+       def last_block(self):
+           return self.chain[-1]
+
+       def proof_of_work(self, last_proof):
+           proof = 0
+           while self.valid_proof(last_proof, proof) is False:
+               proof += 1
+           return proof
+
+       @staticmethod
+       def valid_proof(last_proof, proof):
+           guess = f'{last_proof}{proof}'.encode()
+           guess_hash = hashlib.sha256(guess).hexdigest()
+           return guess_hash[:4] == "0000"
+   ```
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request or open an issue to discuss your ideas for improvements or new features.
+
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 🌟 Acknowledgements
+## Acknowledgments
 
-- [Argon2](https://github.com/P-H-C/phc-winner-argon2)
-- [Cryptography](https://github.com/pyca/cryptography)
-- [Python HMAC](https://docs.python.org/3/library/hmac.html)
-
-## 🚀 Let's Get Secure!
-
-Join us in making the web a safer place, one hash at a time. Happy coding! 🎉
+- Inspired by the latest advancements in cryptography and security.
+- Thanks to the open-source community for providing the tools and libraries used in this project.
